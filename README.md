@@ -16,6 +16,11 @@ git submodule update --init --recursive
   cd modified_manopth
   pip install .
   ```
+- install mano_pybullet:
+  ```
+  cd mano_pybullet
+  pip install -e .
+  ```
 
 # Download files
 

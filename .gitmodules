@@ -1,3 +1,6 @@
 [submodule "modified_manopth"]
 	path = modified_manopth
 	url = https://github.com/freshman0213/modified_manopth.git
+[submodule "mano_pybullet"]
+	path = mano_pybullet
+	url = https://github.com/ychao-nvidia/mano_pybullet.git
