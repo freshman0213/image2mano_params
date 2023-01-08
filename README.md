@@ -1,10 +1,21 @@
-# Setup python environment
+# Install
 
-## Install python dependencies
+```
+git clone https://github.com/freshman0213/image2mano_params.git
+cd images2mano_params
+git submodule update --init --recursive
+```
+
+
+# Setup python environment
 
 - create conda environment with dependencies: `conda env create -f environment.yml`
 - activate environment: `conda activate image2mano_params`
-
+- install manopth:
+```
+cd modified_manopth
+pip install .
+```
 
 # Download files
 
@@ -12,10 +23,6 @@
 
 - Download model files from [here](http://www.di.ens.fr/willow/research/obman/release_models.zip) `wget http://www.di.ens.fr/willow/research/obman/release_models.zip`
 - unzip `unzip release_models.zip`
-
-## Install the MANO PyTorch layer
-
-- Follow the instructions from [here](https://github.com/hassony2/manopth)
 
 ## Download the MANO model files
 
@@ -37,7 +44,6 @@ image2mano_params/
     fhb/
     obman/
     hands_only/
-
 ```
 
 
