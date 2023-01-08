@@ -12,10 +12,10 @@ git submodule update --init --recursive
 - create conda environment with dependencies: `conda env create -f environment.yml`
 - activate environment: `conda activate image2mano_params`
 - install manopth:
-```
-cd modified_manopth
-pip install .
-```
+  ```
+  cd modified_manopth
+  pip install .
+  ```
 
 # Download files
 
