@@ -1,4 +1,4 @@
-name: obman_train
+name: image2mano_params
 channels:
   - menpo
   - defaults
@@ -9,10 +9,12 @@ dependencies:
   - matplotlib
   - numpy
   - pillow
-  - pytorch
   - trimesh
   - tqdm
+  - git
   - pip
   - pip:
     - git+https://github.com/hassony2/chumpy.git
     - opencv-python
+    - torch
+    - torchvision
