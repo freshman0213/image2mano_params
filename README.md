@@ -48,6 +48,10 @@ git submodule update --init --recursive
       hands_only/
   ```
 
+## Download the DexYCB dataset
+
+- 
+
 
 # Launch
 
