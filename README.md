@@ -57,8 +57,10 @@ git submodule update --init --recursive
 
 # Launch
 
+```
 python get_th_full_pose.py --image_path image_path --hand_side hand_side (--flip)
-
+python get_pose_m.py --th_full_pose_path th_full_pose_path --hand_side hand_side
+```
 
 # Acknowledgements
 
