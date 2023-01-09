@@ -50,7 +50,9 @@ git submodule update --init --recursive
 
 ## Download the DexYCB dataset
 
-- 
+- Download the DexYCB dataset [here](https://drive.google.com/file/d/1YhbSyuWB4JpANorp2E6hwzaqqU7drEfy/view?usp=sharing)
+- Place the file under `misc/`
+- Extract the .zip file
 
 
 # Launch
