@@ -4,6 +4,10 @@ import numpy as np
 import torch
 from torchvision.transforms import functional as func_transforms
 
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+else:
+    device = torch.device("cpu")
 
 def preprocess_frame(frame):
     # Squarify
@@ -35,5 +39,5 @@ def prepare_input(frame, flip_left_right=False, debug=False):
     ).unsqueeze(0)
     # Equivalently
     # input_image_1 = input_image / 255 - 0.5
-    input_image = input_image.cuda()
+    input_image = input_image.to(device, non_blocking=False)
     return input_image

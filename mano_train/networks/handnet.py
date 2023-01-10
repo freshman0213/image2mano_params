@@ -15,6 +15,10 @@ from mano_train.networks.branches.contactloss import (
 from mano_train.networks.branches.absolutebranch import AbsoluteBranch
 from handobjectdatasets.queries import TransQueries, BaseQueries
 
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+else:
+    device = torch.device("cpu")
 
 class HandNet(nn.Module):
     def __init__(
@@ -204,7 +208,7 @@ class HandNet(nn.Module):
         total_loss = None
         results = {}
         losses = {}
-        image = sample[TransQueries.images].cuda()
+        image = sample[TransQueries.images].to(device, non_blocking=False)
         features, _ = self.base_net(image)
         if self.atlas_separate_encoder:
             atlas_infeatures, _ = self.atlas_base_net(image)
@@ -301,7 +305,7 @@ class HandNet(nn.Module):
                 ] * scale.unsqueeze(1) + 100 * trans.unsqueeze(1)
                 results["joints2d"] = proj_joints2d
                 if not no_loss:
-                    gt_joints2d = sample[TransQueries.joints2d].cuda().float()
+                    gt_joints2d = sample[TransQueries.joints2d].to(device, non_blocking=False).float()
                     joints2d_loss = torch_f.mse_loss(
                         proj_joints2d, gt_joints2d
                     )

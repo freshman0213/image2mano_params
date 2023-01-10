@@ -6,6 +6,10 @@ import warnings
 
 import torch
 
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+else:
+    device = torch.device("cpu")
 
 def load_checkpoints(model, resume_paths, strict=True):
     # Load models
@@ -31,7 +35,7 @@ def load_checkpoints(model, resume_paths, strict=True):
 def load_checkpoint(model, resume_path, optimizer=None, strict=True, load_atlas=False):
     if os.path.isfile(resume_path):
         print("=> loading checkpoint '{}'".format(resume_path))
-        checkpoint = torch.load(resume_path)
+        checkpoint = torch.load(resume_path, map_location=device)
         if "module" in list(checkpoint["state_dict"].keys())[0]:
             state_dict = checkpoint["state_dict"]
         else:
@@ -58,6 +62,7 @@ def load_checkpoint(model, resume_path, optimizer=None, strict=True, load_atlas=
         if len(missing_states) > 0:
             warnings.warn("Missing keys ! : {}".format(missing_states))
         model.load_state_dict(state_dict, strict=strict)
+        model.to(device, non_blocking=False)
         if optimizer is not None:
             try:
                 missing_states = set(optimizer.state_dict().keys()) - set(

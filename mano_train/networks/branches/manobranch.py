@@ -7,6 +7,10 @@ from manopth.manolayer import ManoLayer
 
 from handobjectdatasets.queries import TransQueries, BaseQueries
 
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+else:
+    device = torch.device("cpu")
 
 class ManoBranch(nn.Module):
     def __init__(
@@ -44,7 +48,7 @@ class ManoBranch(nn.Module):
                 -0.00149655,
                 0.00137479,
             ]
-        ).cuda()
+        ).to(device, non_blocking=False)
 
         if self.use_pca:
             # pca comps + 3 global axis-angle params
@@ -249,7 +253,7 @@ class ManoLoss:
         self.normalize_hand = normalize_hand
 
     def compute_loss(self, preds, target):
-        final_loss = torch.Tensor([0]).cuda()
+        final_loss = torch.Tensor([0]).to(device, non_blocking=False)
         mano_losses = {}
 
         # If needed, compute and add vertex loss

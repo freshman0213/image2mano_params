@@ -9,6 +9,10 @@ from handobjectdatasets.queries import TransQueries
 from mano_train.networks.branches import atlasutils
 from mano_train.networks.branches.laplacianloss import LaplacianLoss
 
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+else:
+    device = torch.device("cpu")
 
 class AtlasBranch(nn.Module):
     def __init__(
@@ -72,7 +76,7 @@ class AtlasBranch(nn.Module):
             raise ValueError("{} not in [sphere]".format(mode))
         self.test_verts = torch.Tensor(
             np.array(test_verts).astype(np.float32)
-        ).cuda()
+        ).to(device, non_blocking=False)
         self.test_faces = test_faces
 
     def forward(self, img_features):
@@ -280,7 +284,7 @@ class AtlasLoss:
                 )
         else:
             sym_loss = None
-            final_loss = torch.Tensor([0]).cuda()
+            final_loss = torch.Tensor([0]).to(device, non_blocking=False)
 
         atlas_losses["atlas_objpoints3d"] = sym_loss
 

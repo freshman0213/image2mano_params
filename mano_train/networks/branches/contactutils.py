@@ -4,6 +4,10 @@ from functools import lru_cache
 import numpy as np
 import torch
 
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+else:
+    device = torch.device("cpu")
 
 @lru_cache(maxsize=128)
 def load_contacts(save_contact_paths="assets/contact_zones.pkl", display=False):
@@ -62,7 +66,7 @@ def ray_triangle_intersection(ray_near, ray_dir, v123):
 def batch_mesh_contains_points(
     ray_origins,
     obj_triangles,
-    direction=torch.Tensor([0.4395064455, 0.617598629942, 0.652231566745]).cuda(),
+    direction=torch.Tensor([0.4395064455, 0.617598629942, 0.652231566745]).to(device, non_blocking=False),
 ):
     """Times efficient but memory greedy !
     Computes ALL ray/triangle intersections and then counts them to determine
@@ -176,7 +180,7 @@ def batch_mesh_contains_point(ray_origin, obj_triangles, tol_thresh=0.000001):
     v0v1 = v1 - v0
     v0v2 = v2 - v0
 
-    direction = torch.Tensor([0.4395064455, 0.617598629942, 0.652231566745]).cuda()
+    direction = torch.Tensor([0.4395064455, 0.617598629942, 0.652231566745]).to(device, non_blocking=False)
     batch_direction = direction.view(1, 1, 3).expand(batch_size, v0v2.shape[1], 3)
     pvec = torch.cross(batch_direction, v0v2, dim=2)
     batch_points_size = batch_size * v0v1.shape[1]
