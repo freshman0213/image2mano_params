@@ -34,19 +34,7 @@ git submodule update --init --recursive
 - Go to [MANO website](http://mano.is.tue.mpg.de/)
 - Create an account by clicking *Sign Up* and provide your information
 - Download Models and Code (the downloaded file should have the format mano_v*_*.zip). Note that all code and data from this download falls under the [MANO license](http://mano.is.tue.mpg.de/license).
-- unzip and copy the content of the *models* folder into the misc/mano folder
-- Your structure should look like this:
-  ```
-  image2mano_params/
-    misc/
-      mano/
-        MANO_LEFT.pkl
-        MANO_RIGHT.pkl
-    release_models/
-      fhb/
-      obman/
-      hands_only/
-  ```
+- unzip and copy the content of the *models* folder into the `misc/mano` folder
 
 ## Download the DexYCB dataset
 
@@ -60,6 +48,20 @@ git submodule update --init --recursive
 - Place the file under `misc/`
 - Extract the .zip file
 
+## Final file structure
+```
+image2mano_params/
+  release_models/
+    fhb/
+    obman/
+    hands_only/
+  misc/
+    mano/
+      MANO_LEFT.pkl
+      MANO_RIGHT.pkl
+    dex-ycb/
+    hand_images/
+```
 
 # Launch
 
