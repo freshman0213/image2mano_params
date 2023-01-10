@@ -54,6 +54,12 @@ git submodule update --init --recursive
 - Place the file under `misc/`
 - Extract the .zip file
 
+## Download hand images
+
+- Download the example hand images [here](https://drive.google.com/file/d/1uZQrjsguuNuaNLiqvvN8NOk-6iH_9O8b/view?usp=sharing)
+- Place the file under `misc/`
+- Extract the .zip file
+
 
 # Launch
 
