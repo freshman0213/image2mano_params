@@ -12,12 +12,12 @@ git submodule update --init --recursive
 - create conda environment with dependencies: `conda env create -f environment.yml`
 - activate environment: `conda activate image2mano_params`
 - install manopth:
-  ```
+  ```Shell
   cd modified_manopth
   pip install .
   ```
 - install mano_pybullet:
-  ```
+  ```Shell
   cd mano_pybullet
   pip install -e .
   ```
@@ -48,7 +48,6 @@ git submodule update --init --recursive
 - Place the file under `misc/`
 - Extract the .zip file
 
-## Final file structure
 ```
 image2mano_params/
   release_models/
@@ -65,9 +64,9 @@ image2mano_params/
 
 # Launch
 
-```
-python get_th_full_pose.py --image_path image_path --hand_side hand_side (--flip)
-python get_pose_m.py --th_full_pose_path th_full_pose_path --hand_side hand_side
+```Shell
+python get_th_full_pose.py --image_path image_path --hand_side hand_side (--flip) (--th_full_pose_root th_full_pose_root)
+python get_pose_m.py --th_full_pose_path th_full_pose_path --hand_side hand_side (--pose_m_path pose_m_path)
 ```
 
 # Acknowledgements
