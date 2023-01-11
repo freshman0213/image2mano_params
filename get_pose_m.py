@@ -22,6 +22,12 @@ parser.add_argument(
     help="Side of the hand",
     default="right"
 )
+parser.add_argument(
+    "--pose_m_path",
+    type=str,
+    help="Path to store pose_m",
+    default=None
+)
 args = parser.parse_args()
 
 # Get raw dataset dir.
@@ -164,5 +170,8 @@ for o in range(q.shape[1]):
     q_i_o[:, 0:3] = np.unwrap(q_i_o[:, 0:3], axis=0)
     q[i[:, o], o] = q_i_o
 
-pose_m = np.dstack((t, q))
-print("Parameters for the MANO hand : {}".format(torch.tensor(pose_m)))
+pose_m = np.dstack((t, q))[0, 0, 6:]
+if args.pose_m_path is not None:
+    np.save(args.pose_m_path, pose_m)
+else:
+    print("Parameters for the MANO hand : {}".format(pose_m))
