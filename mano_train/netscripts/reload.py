@@ -36,6 +36,7 @@ def reload_model(
     model_path,
     checkpoint_opts,
     mano_root="misc/mano",
+    th_full_pose_root=None,
     ico_divisions=3,
     no_beta=False,
 ):
@@ -89,6 +90,7 @@ def reload_model(
         collision_lambda=checkpoint_opts["collision_lambda"],
         mano_adapt_skeleton=checkpoint_opts["mano_adapt_skeleton"],
         mano_root=mano_root,
+        th_full_pose_root=th_full_pose_root,
         mano_center_idx=checkpoint_opts["center_idx"],
         mano_comps=30,
         mano_neurons=checkpoint_opts["hidden_neurons"],
@@ -103,7 +105,7 @@ def reload_model(
     try:
         modelio.load_checkpoint(model, resume_path=model_path, strict=True)
     except RuntimeError:
-        traceback.print_exc()
+        # traceback.print_exc()
         warnings.warn(
             "Couldn' load model in strict mode, trying without strict"
         )

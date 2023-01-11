@@ -22,6 +22,7 @@ class ManoBranch(nn.Module):
         use_trans=False,
         use_pca=True,
         mano_root="misc/mano",
+        th_full_pose_root=None,
         adapt_skeleton=True,
         dropout=0,
     ):
@@ -98,6 +99,7 @@ class ManoBranch(nn.Module):
             center_idx=center_idx,
             side="right",
             mano_root=mano_root,
+            th_full_pose_root=th_full_pose_root,
             use_pca=use_pca,
         )
         self.mano_layer_left = ManoLayer(
@@ -105,6 +107,7 @@ class ManoBranch(nn.Module):
             center_idx=center_idx,
             side="left",
             mano_root=mano_root,
+            th_full_pose_root=th_full_pose_root,
             use_pca=use_pca,
         )
         if self.adapt_skeleton:
@@ -134,8 +137,8 @@ class ManoBranch(nn.Module):
             mano_pose = pose
 
         # Prepare for splitting batch in right hands and left hands
-        is_rights = inp.new_tensor([side == "right" for side in sides]).byte()
-        is_lefts = 1 - is_rights
+        is_rights = inp.new_tensor([side == "right" for side in sides]).bool()
+        is_lefts = ~is_rights
         is_rights = is_rights[: pose.shape[0]]
         is_lefts = is_lefts[: pose.shape[0]]
 

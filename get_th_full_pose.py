@@ -55,6 +55,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "--no_beta", action="store_true", help="Force shape to average"
     )
+    parser.add_argument(
+        "--th_full_pose_root",
+        help="Root dir to store th_full_pose",
+        default=None
+    )
     args = parser.parse_args()
     argutils.print_args(args)
 
@@ -63,7 +68,7 @@ if __name__ == "__main__":
     checkpoint = os.path.dirname(checkpoint_path)
     with open(os.path.join(checkpoint, "opt.pkl"), "rb") as opt_f:
         opts = pickle.load(opt_f)
-    model = reload_model(checkpoint_path, opts, no_beta=args.no_beta)
+    model = reload_model(checkpoint_path, opts, th_full_pose_root=args.th_full_pose_root, no_beta=args.no_beta)
     model.eval()
 
     # Preprocess image
